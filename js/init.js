@@ -1,4 +1,5 @@
 import { state, setHello, setSharePathDisplay, refreshFromShare, saveToInbox, initializeUi, switchTab } from './stores/state.js';
+import { renderSidebar } from './components/navigation.js';
 import { isValidPayload, EMPTY_PAYLOAD } from './data/schema.js';
 import { migrateToV4 } from './data/migrations.js';
 import { importJsonPayload } from './actions/data.js';
@@ -61,6 +62,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const migrated = migrateToV4(payload ?? EMPTY_PAYLOAD);
     state.setCurrentPayload(migrated);
     renderDashboard(migrated);
+    renderSidebar(migrated);
   } catch (error) {
     console.error('Initialization failed:', error);
     showToast('Application initialization failed.', 'err');

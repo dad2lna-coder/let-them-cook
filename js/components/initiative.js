@@ -143,6 +143,8 @@ export function openInitiativeEditor(id, payload) {
 }
 
 export function addInitiative(payload) {
+  payload = payload || state.getCurrentPayload();
+  if (!payload) return;
   const initiatives = payload.initiatives || [];
   const newId = 'init-' + Date.now();
   const newInitiative = {

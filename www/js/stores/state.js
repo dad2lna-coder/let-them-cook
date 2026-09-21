@@ -10,6 +10,7 @@ import { renderProblemsPage, showProblemEditor, hideProblemEditor, saveProblem, 
 import { renderAnalytics } from "../pages/analytics.js";
 import { renderInitiativeList, openInitiativeEditor, addInitiative, deleteInitiative, saveCurrentInitiative, backToInitiativesList } from "../components/initiative.js";
 import { addRootNote, replyToNote, saveReply } from "../components/notes.js";
+import { renderSidebar } from "../components/navigation.js";
 
 export const STORAGE_KEY = "let_them_cook_initiatives_facttt_v4";
 export const DEMO_DASHBOARD_KEY = "ltc_preview_initiatives_json";
@@ -54,20 +55,7 @@ export function resetDashboard() {
   localStorage.removeItem(DEMO_DASHBOARD_KEY);
   location.reload();
 }
-export function renderSidebar(payload) {
-  const recent = payload?.initiatives?.filter((init) => init.status !== 'Completed').slice(0, 5) || [];
-  const container = document.getElementById('sidebar-recent');
-  if (!container) return;
-  if (recent.length === 0) {
-    container.innerHTML = '';
-    return;
-  }
-  container.innerHTML = recent.map((init) => {
-    const name = init.name || 'Unnamed';
-    const date = init.updatedAt ? new Date(init.updatedAt).toLocaleDateString() : '—';
-    return `<div class="sidebar-recent-item" data-init-id="${init.id}" onclick="openInitiativeEditor('${init.id}')">${name} <span class="text-sm text-muted-600">${date}</span></div>`;
-  }).join('');
-}
+
 
 export function setCurrentTab(tab) { currentTab = tab; }
 export function getCurrentTab() { return currentTab; }
@@ -221,6 +209,7 @@ export async function refreshFromShare() {
     currentPayload = migrated;
     setCurrentPayload(migrated);
     renderCurrentTab(migrated);
+    renderSidebar(migrated);
     if (!isTauri()) return migrated;
     showToast("Refreshed from data/initiatives.json", "ok");
     return migrated;
@@ -254,8 +243,7 @@ export function switchTab(tabName) {
   currentTab = tabName;
   document.querySelectorAll(".top-bar .tab-link").forEach(t => t.classList.toggle("active", t.dataset.tab === tabName));
   document.querySelectorAll(".workspace-link").forEach(t => {
-    const goesToInitiatives = t.dataset.tab === "initiatives" || t.dataset.filter !== undefined;
-    t.classList.toggle("active", goesToInitiatives);
+    t.classList.toggle("active", tabName === "initiatives" && t.dataset.filter === "all");
   });
   document.querySelectorAll(".page").forEach(p => {
     const isTarget = p.id === `page-${tabName}`;
@@ -274,6 +262,7 @@ export function renderCurrentTab(payload) {
     case "analytics": renderAnalytics(payload); break;
     default: renderDashboard(payload);
   }
+  renderSidebar(payload || currentPayload);
 }
 
 export const state = {
