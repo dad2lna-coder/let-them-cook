@@ -14,19 +14,19 @@
         <h1>Let Them Cook</h1>
       </div>
       <nav class="top-nav">
-        <button type="button" class="tab-link active" data-tab="dashboard">Dashboard</button>
-        <button type="button" class="tab-link" data-tab="problems">Problems</button>
-        <button type="button" class="tab-link" data-tab="initiatives">Initiatives</button>
-        <button type="button" class="tab-link" data-tab="analytics">Analytics</button>
+        <button type="button" class="tab-link active" data-tab="dashboard" data-action="tab">Dashboard</button>
+        <button type="button" class="tab-link" data-tab="problems" data-action="tab">Problems</button>
+        <button type="button" class="tab-link" data-tab="initiatives" data-action="tab">Initiatives</button>
+        <button type="button" class="tab-link" data-tab="analytics" data-action="tab">Analytics</button>
       </nav>
     </div>
     <div class="shell-body">
       <aside class="sidebar">
         <h3>WORKSPACE</h3>
         <nav class="workspace-links">
-          <button type="button" class="workspace-link active" data-filter="all">All</button>
-          <button type="button" class="workspace-link" data-filter="active">Active</button>
-          <button type="button" class="workspace-link" data-filter="completed">Completed</button>
+          <button type="button" class="workspace-link active" data-filter="all" data-action="tab" data-tab="initiatives">All</button>
+          <button type="button" class="workspace-link" data-filter="active" data-action="tab" data-tab="initiatives">Active</button>
+          <button type="button" class="workspace-link" data-filter="completed" data-action="tab" data-tab="initiatives">Completed</button>
         </nav>
         <button type="button" class="success" data-action="add-initiative">+ New initiative</button>
         <div class="sidebar-section">
@@ -197,6 +197,7 @@
             </div>
           </div>
         </div>
+        <div id="sections-container"></div>
         <section class="panel" id="initiative-notes-panel">
     <div class="panel-heading"><h3>Notes</h3></div>
     <div id="initiative-notes" class="notes-thread"></div>
