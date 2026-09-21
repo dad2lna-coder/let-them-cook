@@ -134,6 +134,8 @@ export function renderInitiativeEditor(init, payload) {
 }
 
 export function openInitiativeEditor(id, payload) {
+  payload = payload || state.getCurrentPayload();
+  if (!payload) return;
   const init = (payload.initiatives || []).find(i => i.id === id);
   if (!init) return;
   state.setCurrentInitiativeId(id);
@@ -171,6 +173,8 @@ export function addInitiative(payload) {
 }
 
 export function deleteInitiative(id, payload) {
+  payload = payload || state.getCurrentPayload();
+  if (!payload) return;
   if (!confirm('Delete this initiative and all its sections? This cannot be undone.')) return;
   payload.initiatives = (payload.initiatives || []).filter(i => i.id !== id);
   state.setCurrentPayload(payload);
@@ -200,6 +204,7 @@ export function addSection() {
 }
 
 export function saveCurrentInitiative(payload) {
+  payload = payload || state.getCurrentPayload();
   const initId = state.getCurrentInitiativeId();
   if (!initId || !payload) return;
   const init = (payload.initiatives || []).find(i => i.id === initId);

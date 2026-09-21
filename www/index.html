@@ -7,39 +7,58 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="app-header">
-    <div class="header-inner">
-      <div class="brand-lockup">
+  <div class="app-shell">
+    <div class="top-bar">
+      <div class="brand">
         <div class="brand-mark" aria-hidden="true">LTC</div>
-        <div>
-          <h1>Let Them Cook</h1>
-          <p class="tagline">A shared workspace for operational improvements.</p>
-        </div>
+        <h1>Let Them Cook</h1>
       </div>
-      <div class="header-meta">
-        <p id="hello-line" class="hello-line">Hello</p>
-        <p class="share-status">Shared folder: <code id="share-path-code">OneDrive - USTSA\FACTTT</code></p>
-      </div>
-    </div>
-    <div class="shell-toolbar">
-      <nav class="top-tabs" aria-label="Primary navigation">
-        <button type="button" class="tab-button active" data-tab="dashboard" data-action="tab">Dashboard</button>
-        <button type="button" class="tab-button" data-tab="problems" data-action="tab">Problems</button>
-        <button type="button" class="tab-button" data-tab="initiatives" data-action="tab">Initiatives</button>
-        <button type="button" class="tab-button" data-tab="analytics" data-action="tab">Analytics</button>
+      <nav class="top-nav">
+        <button type="button" class="tab-link active" data-tab="dashboard" data-action="tab">Dashboard</button>
+        <button type="button" class="tab-link" data-tab="problems" data-action="tab">Problems</button>
+        <button type="button" class="tab-link" data-tab="initiatives" data-action="tab">Initiatives</button>
+        <button type="button" class="tab-link" data-tab="analytics" data-action="tab">Analytics</button>
       </nav>
-      <div class="toolbar-actions">
-        <button type="button" class="secondary" data-action="refresh">Refresh</button>
-        <button type="button" class="success" data-action="save">Save</button>
-        <button type="button" class="quiet" data-action="reset">Reset demo cache</button>
-      </div>
     </div>
-    <p id="preview-banner" class="preview-banner" hidden>
-      Browser preview — Refresh / Save use a local demo store. The Windows exe writes to OneDrive FACTTT.
-    </p>
-  </header>
+    <div class="shell-body">
+      <aside class="sidebar">
+        <h3>WORKSPACE</h3>
+        <nav class="workspace-links">
+          <button type="button" class="workspace-link active" data-filter="all" data-action="tab" data-tab="initiatives">All</button>
+          <button type="button" class="workspace-link" data-filter="active" data-action="tab" data-tab="initiatives">Active</button>
+          <button type="button" class="workspace-link" data-filter="completed" data-action="tab" data-tab="initiatives">Completed</button>
+        </nav>
+        <button type="button" class="success" data-action="add-initiative">+ New initiative</button>
+        <div class="sidebar-section">
+          <h4>Recent</h4>
+          <div id="sidebar-recent"></div>
+        </div>
+        <div class="sidebar-section">
+          <h4>Last synced</h4>
+          <div id="sidebar-synced">Browser demo</div>
+        </div>
+      </aside>
+      <main class="main-stage">
+        <header class="app-header">
+          <div class="header-inner">
+            <div class="header-meta">
+              <p id="hello-line" class="hello-line">Hello</p>
+              <p class="share-status">Shared folder: <code id="share-path-code">OneDrive - USTSA\FACTTT</code></p>
+            </div>
+          </div>
+          <div class="shell-toolbar">
+            <div class="toolbar-actions">
+              <button type="button" class="secondary" data-action="refresh">Refresh</button>
+              <button type="button" class="success" data-action="save">Save</button>
+              <button type="button" class="quiet" data-action="reset">Reset demo cache</button>
+            </div>
+          </div>
+          <p id="preview-banner" class="preview-banner" hidden>
+            Browser preview — Refresh / Save use a local demo store. The Windows exe writes to OneDrive FACTTT.
+          </p>
+        </header>
 
-  <main class="container">
+        <main class="container">
     <section id="page-dashboard" class="page active" aria-labelledby="dashboard-title">
       <div class="page-heading">
         <div>
@@ -178,6 +197,7 @@
             </div>
           </div>
         </div>
+        <div id="sections-container"></div>
         <section class="panel" id="initiative-notes-panel">
     <div class="panel-heading"><h3>Notes</h3></div>
     <div id="initiative-notes" class="notes-thread"></div>
@@ -223,6 +243,9 @@
       </div>
     </section>
   </main>
+      </main>
+    </div>
+  </div>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script type="module" src="js/init.js"></script>

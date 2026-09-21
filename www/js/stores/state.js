@@ -54,6 +54,21 @@ export function resetDashboard() {
   localStorage.removeItem(DEMO_DASHBOARD_KEY);
   location.reload();
 }
+export function renderSidebar(payload) {
+  const recent = payload?.initiatives?.filter((init) => init.status !== 'Completed').slice(0, 5) || [];
+  const container = document.getElementById('sidebar-recent');
+  if (!container) return;
+  if (recent.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+  container.innerHTML = recent.map((init) => {
+    const name = init.name || 'Unnamed';
+    const date = init.updatedAt ? new Date(init.updatedAt).toLocaleDateString() : '—';
+    return `<div class="sidebar-recent-item" data-init-id="${init.id}" onclick="openInitiativeEditor('${init.id}')">${name} <span class="text-sm text-muted-600">${date}</span></div>`;
+  }).join('');
+}
+
 export function setCurrentTab(tab) { currentTab = tab; }
 export function getCurrentTab() { return currentTab; }
 
@@ -237,13 +252,18 @@ export async function saveToInbox() {
 
 export function switchTab(tabName) {
   currentTab = tabName;
-  document.querySelectorAll(".top-tabs .tab-button").forEach(t => t.classList.toggle("active", t.dataset.tab === tabName));
+  document.querySelectorAll(".top-bar .tab-link").forEach(t => t.classList.toggle("active", t.dataset.tab === tabName));
+  document.querySelectorAll(".workspace-link").forEach(t => {
+    const goesToInitiatives = t.dataset.tab === "initiatives" || t.dataset.filter !== undefined;
+    t.classList.toggle("active", goesToInitiatives);
+  });
   document.querySelectorAll(".page").forEach(p => {
     const isTarget = p.id === `page-${tabName}`;
     p.hidden = !isTarget;
     p.classList.toggle("active", isTarget);
   });
   renderCurrentTab(currentPayload);
+  renderSidebar(currentPayload);
 }
 
 export function renderCurrentTab(payload) {
