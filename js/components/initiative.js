@@ -132,6 +132,12 @@ export function renderInitiativeEditor(init, payload) {
     });
   }
 
+  // Bind the detail toolbar delete button to the current initiative.
+  const detailDeleteBtn = document.getElementById('initiative-detail-view')?.querySelector('[data-action="delete-initiative"]');
+  if (detailDeleteBtn) {
+    detailDeleteBtn.dataset.id = init.id;
+  }
+
   // Render notes panel
   renderNotesForInitiative(init);
 }
@@ -195,12 +201,12 @@ export function addInitiative(payload, problemId) {
   initiatives.push(newInitiative);
   payload.initiatives = initiatives;
   state.setCurrentPayload(payload);
-  renderInitiativeList(payload);
-  openInitiativeEditor(newId, payload);
+  state.setCurrentInitiativeId(newId);
   // Switch to initiatives tab if we're coming from a problem page
   if (state.getCurrentTab && state.getCurrentTab() !== 'initiatives') {
     state.switchTab('initiatives');
   }
+  openInitiativeEditor(newId, payload);
   return newInitiative;
 }
 

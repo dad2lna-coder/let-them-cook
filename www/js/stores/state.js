@@ -92,6 +92,7 @@ function collectInitiatives() {
   current.name = document.getElementById("initiative-name")?.value.trim() || "Unnamed";
   current.status = document.getElementById("initiative-status")?.value || "New";
   current.startDate = document.getElementById("initiative-start-date")?.value || "";
+  current.problemId = document.getElementById("initiative-problem")?.value || "";
   current.sections = [];
   document.querySelectorAll(".section-editor").forEach(sectionEl => {
     const section = collectSectionPayload(sectionEl.dataset.id);

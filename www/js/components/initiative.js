@@ -78,7 +78,7 @@ export function renderInitiativeList(payload) {
         <span>Notes: ${notesCount}</span>
       </div>
       ${init.startDate ? `<div class="initiative-start">Started ${state.escapeHtml(init.startDate)}</div>` : ''}
-      ${init.problemId ? `<div class="initiative-problem-meta">Problem: ${state.escapeHtml(problems.find(p => p.id === init.problemId)?.title || init.problemId)}</div>` : ''}
+      ${init.problemId ? `<div class="initiative-problem-meta">Problem: ${state.escapeHtml((payload.problems || []).find(p => p.id === init.problemId)?.title || init.problemId)}</div>` : ''}
       <div class="initiative-actions">
         <button type="button" class="secondary" data-action="open-initiative" data-id="${init.id}">Open</button>
         <button type="button" class="danger" data-action="delete-initiative" data-id="${init.id}">Delete</button>
@@ -130,6 +130,12 @@ export function renderInitiativeEditor(init, payload) {
     (init.sections || []).forEach((section, index) => {
       renderSection(section, index, init.id, sectionsContainer);
     });
+  }
+
+  // Bind the detail toolbar delete button to the current initiative.
+  const detailDeleteBtn = document.getElementById('initiative-detail-view')?.querySelector('[data-action="delete-initiative"]');
+  if (detailDeleteBtn) {
+    detailDeleteBtn.dataset.id = init.id;
   }
 
   // Render notes panel
@@ -195,12 +201,12 @@ export function addInitiative(payload, problemId) {
   initiatives.push(newInitiative);
   payload.initiatives = initiatives;
   state.setCurrentPayload(payload);
-  renderInitiativeList(payload);
-  openInitiativeEditor(newId, payload);
+  state.setCurrentInitiativeId(newId);
   // Switch to initiatives tab if we're coming from a problem page
   if (state.getCurrentTab && state.getCurrentTab() !== 'initiatives') {
     state.switchTab('initiatives');
   }
+  openInitiativeEditor(newId, payload);
   return newInitiative;
 }
 
