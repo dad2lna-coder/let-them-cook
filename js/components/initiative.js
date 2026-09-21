@@ -78,6 +78,7 @@ export function renderInitiativeList(payload) {
         <span>Notes: ${notesCount}</span>
       </div>
       ${init.startDate ? `<div class="initiative-start">Started ${state.escapeHtml(init.startDate)}</div>` : ''}
+      ${init.problemId ? `<div class="initiative-problem-meta">Problem: ${state.escapeHtml((payload.problems || []).find(p => p.id === init.problemId)?.title || init.problemId)}</div>` : ''}
       <div class="initiative-actions">
         <button type="button" class="secondary" data-action="open-initiative" data-id="${init.id}">Open</button>
         <button type="button" class="danger" data-action="delete-initiative" data-id="${init.id}">Delete</button>
@@ -116,10 +117,12 @@ export function renderInitiativeEditor(init, payload) {
   const nameInput = document.getElementById('initiative-name');
   const statusSelect = document.getElementById('initiative-status');
   const startDateInput = document.getElementById('initiative-start-date');
+  const problemSelect = document.getElementById('initiative-problem');
 
   if (nameInput) nameInput.value = init.name || '';
   if (statusSelect) statusSelect.value = init.status || 'New';
   if (startDateInput) startDateInput.value = init.startDate || '';
+  if (problemSelect) fillProblemSelect(payload, init.problemId || '');
 
   const sectionsContainer = document.getElementById('sections-container');
   if (sectionsContainer) {
@@ -133,6 +136,28 @@ export function renderInitiativeEditor(init, payload) {
   renderNotesForInitiative(init);
 }
 
+function fillProblemSelect(payload, selectedId) {
+  const select = document.getElementById('initiative-problem');
+  if (!select) return;
+  
+  // Clear existing options except the first "— None —" option
+  while (select.options.length > 1) {
+    select.remove(1);
+  }
+  
+  // Add problem options
+  const problems = payload?.problems || [];
+  problems.forEach(problem => {
+    const option = document.createElement('option');
+    option.value = problem.id;
+    option.textContent = problem.title || 'Unnamed problem';
+    select.appendChild(option);
+  });
+  
+  // Set selected value
+  select.value = selectedId;
+}
+
 export function openInitiativeEditor(id, payload) {
   payload = payload || state.getCurrentPayload();
   if (!payload) return;
@@ -142,7 +167,7 @@ export function openInitiativeEditor(id, payload) {
   renderInitiativeEditor(init, payload);
 }
 
-export function addInitiative(payload) {
+export function addInitiative(payload, problemId) {
   payload = payload || state.getCurrentPayload();
   if (!payload) return;
   const initiatives = payload.initiatives || [];
@@ -164,13 +189,18 @@ export function addInitiative(payload) {
         questions: [],
         flow: null
       }
-    ]
+    ],
+    problemId: problemId || ''
   };
   initiatives.push(newInitiative);
   payload.initiatives = initiatives;
   state.setCurrentPayload(payload);
   renderInitiativeList(payload);
   openInitiativeEditor(newId, payload);
+  // Switch to initiatives tab if we're coming from a problem page
+  if (state.getCurrentTab && state.getCurrentTab() !== 'initiatives') {
+    state.switchTab('initiatives');
+  }
   return newInitiative;
 }
 
@@ -214,6 +244,7 @@ export function saveCurrentInitiative(payload) {
   init.name = document.getElementById('initiative-name')?.value.trim() || 'Unnamed';
   init.status = document.getElementById('initiative-status')?.value || 'New';
   init.startDate = document.getElementById('initiative-start-date')?.value || '';
+  init.problemId = document.getElementById('initiative-problem')?.value || '';
   // Notes are managed by notes.js and stored in payload
   const sectionsContainer = document.getElementById('sections-container');
   if (sectionsContainer && init.sections) {

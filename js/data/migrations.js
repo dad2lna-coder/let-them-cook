@@ -123,6 +123,7 @@ export function migrateToV4(payload) {
       ...rest,
       status: normalizeStatus(rest.status),
       startDate: typeof rest.startDate === "string" ? rest.startDate : "",
+      problemId: typeof rest.problemId === "string" ? rest.problemId : "",
       notes: normalizeNotes(rest.notes),
       sections: Array.isArray(rest.sections) ? rest.sections : []
     };

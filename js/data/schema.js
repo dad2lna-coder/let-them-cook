@@ -26,6 +26,7 @@ export function isValidPayload(payload) {
     if (!init.id || typeof init.id !== "string") return false;
     if (!init.name || typeof init.name !== "string") return false;
     if (init.status && !["New", "Planning", "Active", "Completed"].includes(init.status)) return false;
+    if (init.problemId !== undefined && init.problemId !== null && typeof init.problemId !== "string") return false;
     if (!Array.isArray(init.sections)) return false;
     for (const sec of init.sections) {
       if (!sec.id || typeof sec.id !== "string") return false;
@@ -61,6 +62,7 @@ export function buildDemoStarterPayload() {
         name: "Standardize Movement Notification Fields",
         status: "Active",
         startDate: "2026-09-01",
+        problemId: "prob-demo-1",
         notes: [
           {
             id: "note-1",
@@ -131,6 +133,7 @@ export function buildDemoStarterPayload() {
         name: "Automate Notification Distribution",
         status: "Planning",
         startDate: "",
+        problemId: "prob-demo-1",
         notes: [],
         sections: [
           {

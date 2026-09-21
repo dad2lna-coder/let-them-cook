@@ -35,15 +35,20 @@ export function renderProblemsPage(payload) {
     const card = document.createElement("div");
     card.className = "problem-card";
     card.dataset.id = problem.id;
+    const linkedCount = (payload.initiatives || []).filter(i => i.problemId === problem.id).length;
     card.innerHTML = `
       <div class="problem-header">
         <strong>${escapeHtml(problem.title || "")}</strong>
         <span class="priority-pill priority-${problem.priority || "medium"}">${problem.priority || "medium"}</span>
       </div>
       <div class="problem-body editable-content" contenteditable="true">${escapeHtml(problem.body || "")}</div>
+      <div class="problem-meta">
+        <span>${linkedCount} initiative${linkedCount !== 1 ? 's' : ''}</span>
+      </div>
       <div class="problem-footer">
         <button type="button" class="secondary" onclick="window.editProblem('${problem.id}')">Edit</button>
         <button type="button" class="danger" onclick="window.deleteProblem('${problem.id}')">Delete</button>
+        <button type="button" class="success" data-action="add-initiative-for-problem" data-id="${problem.id}">+ Initiative</button>
       </div>
     `;
     listContainer.appendChild(card);
