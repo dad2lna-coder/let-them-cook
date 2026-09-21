@@ -1,0 +1,23 @@
+# .gitignore — Let Them Cook
+
+## Build artifacts
+www/
+node_modules/
+src-tauri/target/
+
+## Local workspace files (not repo content)
+memory/
+DREAMS.md
+rotation_app/
+projects/
+*.log
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## IDE
+.idea/
+.vscode/
+*.swp
+*.swo
