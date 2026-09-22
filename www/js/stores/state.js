@@ -186,9 +186,15 @@ export function bindUiEvents() {
       case "mark-problem-active": setProblemStatus(target.dataset.id, "Active"); break;
       case "edit-problem": editProblem(target.dataset.id); break;
       case "save-initiative": saveCurrentInitiative(); break;
-      case "back-initiatives": backToInitiativesList(); break;
+      case "back-initiatives":
+        if (state.getCurrentTab() !== "initiatives") {
+          state.switchTab("initiatives");
+        }
+        backToInitiativesList(); break;
       case "delete-initiative": deleteInitiative(target.dataset.id); break;
-      case "open-initiative": openInitiativeEditor(target.dataset.id); break;
+      case "open-initiative":
+        switchTab("initiatives");
+        openInitiativeEditor(target.dataset.id); break;
       case "toggle-briefing-picker": toggleBriefingPicker(); break;
       case "add-briefing": addBriefingRow(target.dataset.kind); break;
       case "delete-briefing": deleteBriefingRow(target.dataset.id); break;

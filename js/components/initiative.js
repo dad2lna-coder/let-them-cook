@@ -46,11 +46,30 @@ function ensureBriefing(init) {
   return init.briefing;
 }
 
+function toggleToolbarButtons(visible) {
+  const toolbar = document.querySelector('.initiative-toolbar');
+  if (!toolbar) return;
+  const buttons = toolbar.querySelectorAll('button');
+  buttons.forEach(btn => {
+    if (visible) {
+      btn.style.display = '';
+      btn.disabled = false;
+    } else {
+      btn.style.display = 'none';
+    }
+  });
+}
+
+function setDeleteButtonId(id) {
+  const toolbar = document.querySelector('.initiative-toolbar');
+  if (!toolbar) return;
+  const deleteBtn = toolbar.querySelector('[data-action="delete-initiative"]');
+  if (deleteBtn) deleteBtn.dataset.id = id;
+}
+
 function paintBriefing(init) {
   const list = document.getElementById("briefing-list");
   const empty = document.getElementById("briefing-empty");
-  const picker = document.getElementById("briefing-picker");
-  if (picker) picker.hidden = true;
   if (!list) return;
   const rows = ensureBriefing(init);
   list.innerHTML = "";
@@ -77,9 +96,7 @@ function paintBriefing(init) {
 }
 
 export function toggleBriefingPicker() {
-  const picker = document.getElementById("briefing-picker");
-  if (!picker) return;
-  picker.hidden = !picker.hidden;
+  // No-op: briefing picker menu removed in LTC-27
 }
 
 export function addBriefingRow(kind) {
@@ -154,6 +171,7 @@ export function renderInitiativeList(payload) {
   const detailView = document.getElementById('initiative-detail-view');
   if (listView) listView.hidden = false;
   if (detailView) detailView.hidden = true;
+  toggleToolbarButtons(false);
 }
 
 // ------------------------------------------------------------------
@@ -193,6 +211,8 @@ export function renderInitiativeEditor(init, payload) {
   if (detailDeleteBtn) {
     detailDeleteBtn.dataset.id = init.id;
   }
+  setDeleteButtonId(init.id);
+  toggleToolbarButtons(true);
 
   paintBriefing(init);
 
@@ -352,6 +372,7 @@ export function backToInitiativesList() {
   const detailView = document.getElementById('initiative-detail-view');
   if (listView) listView.hidden = false;
   if (detailView) detailView.hidden = true;
+  toggleToolbarButtons(false);
   renderInitiativeList(state.getCurrentPayload());
 }
 

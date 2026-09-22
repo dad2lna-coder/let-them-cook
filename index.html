@@ -17,18 +17,17 @@
       <aside class="sidebar">
         <div class="sidebar-brand">
           <img class="sidebar-seal" src="assets/tsa-seal.png" alt="" width="160" height="160" aria-hidden="true" />
-          <h3 class="sidebar-workspace-label">WORKSPACE</h3>
         </div>
         <button type="button" class="sidebar-nav-btn" data-action="tab" data-tab="dashboard">Dashboard</button>
         <button type="button" class="sidebar-nav-btn quiet" data-action="tab" data-tab="analytics">Analytics</button>
 
         <div class="sidebar-nav-block">
-          <div class="sidebar-pill">Problems</div>
+          <button type="button" class="sidebar-pill" data-action="tab" data-tab="problems">Problems</button>
           <div id="sidebar-problems" class="sidebar-tree"></div>
         </div>
 
         <div class="sidebar-nav-block">
-          <div class="sidebar-pill">Initiatives</div>
+          <button type="button" class="sidebar-pill" data-action="tab" data-tab="initiatives">Initiatives</button>
           <div id="sidebar-initiatives" class="sidebar-tree"></div>
         </div>
 
@@ -105,7 +104,7 @@
         <section class="panel">
           <div class="panel-heading">
             <div>
-              <p class="eyebrow">Workspace</p>
+              <p class="eyebrow">Plan</p>
               <h3>Initiatives</h3>
             </div>
             <button type="button" class="text-button" data-tab="initiatives" data-action="tab">Open workspace</button>
@@ -157,11 +156,16 @@
     <section id="page-initiatives" class="page" aria-labelledby="initiatives-title" hidden>
       <div class="page-heading">
         <div>
-          <p class="eyebrow">Workspace</p>
+          <p class="eyebrow">Plan</p>
           <h2 id="initiatives-title">Initiatives</h2>
           <p>Turn the gaps into a plan, keep the discussion visible, and track the next action.</p>
         </div>
-        <button type="button" class="success" data-action="add-initiative">+ New initiative</button>
+        <div class="initiative-toolbar">
+          <button type="button" class="success" data-action="add-initiative">+ New</button>
+          <button type="button" class="secondary" data-action="back-initiatives">← Back</button>
+          <button type="button" class="danger" data-action="delete-initiative">Delete</button>
+          <button type="button" class="success" data-action="save-initiative">Save</button>
+        </div>
       </div>
 
       <div id="initiative-list-view" class="initiative-list-view">
@@ -169,14 +173,9 @@
       </div>
 
       <div id="initiative-detail-view" class="initiative-detail-view" hidden>
-        <div class="detail-toolbar">
-          <button type="button" class="secondary" data-action="back-initiatives">← Back to initiatives</button>
-          <span class="detail-kicker">Initiative workspace</span>
-        </div>
         <div class="panel initiative-detail">
           <div class="detail-heading">
             <div>
-              <p class="eyebrow">Initiative</p>
               <h3 id="initiative-detail-title">Initiative detail</h3>
             </div>
             <div class="button-row">
@@ -208,27 +207,19 @@
             </select>
           </div>
         </div>
-        <section class="panel briefing-panel" id="briefing-panel">
-  <div class="panel-heading">
-    <div>
-      <p class="eyebrow">Initiative</p>
-      <h3>Briefing</h3>
-    </div>
-    <div class="briefing-add-wrap">
-      <button type="button" class="secondary" data-action="toggle-briefing-picker" id="briefing-add-btn">+</button>
-      <div id="briefing-picker" class="briefing-picker" hidden>
-        <button type="button" data-action="add-briefing" data-kind="who">Who</button>
-        <button type="button" data-action="add-briefing" data-kind="what">What</button>
-        <button type="button" data-action="add-briefing" data-kind="when">When</button>
-        <button type="button" data-action="add-briefing" data-kind="where">Where</button>
-        <button type="button" data-action="add-briefing" data-kind="why">Why</button>
-        <button type="button" data-action="add-briefing" data-kind="how">How</button>
-      </div>
-    </div>
-  </div>
-  <p id="briefing-empty" class="muted">Add Who / What / When / Where / Why / How</p>
-  <div id="briefing-list"></div>
-</section>
+        <section class="panel briefing-box" id="briefing-panel">
+          <div class="briefing-header">
+            <button type="button" data-action="add-briefing" data-kind="who">Who</button>
+            <button type="button" data-action="add-briefing" data-kind="what">What</button>
+            <button type="button" data-action="add-briefing" data-kind="when">When</button>
+            <button type="button" data-action="add-briefing" data-kind="where">Where</button>
+            <button type="button" data-action="add-briefing" data-kind="why">Why</button>
+            <button type="button" data-action="add-briefing" data-kind="how">How</button>
+            <button type="button" class="secondary" data-action="add-briefing" id="briefing-add-btn">+</button>
+          </div>
+          <p id="briefing-empty" class="muted">Add Who / What / When / Where / Why / How</p>
+          <div id="briefing-list"></div>
+        </section>
         <div id="sections-container"></div>
         <section class="panel" id="initiative-notes-panel">
     <div class="panel-heading"><h3>Notes</h3></div>
@@ -236,8 +227,7 @@
     <div id="initiative-notes-form" class="field"><textarea id="new-note-body" class="field textarea" placeholder="Add a note..."></textarea><button type="button" class="secondary" data-action="add-note">Add note</button></div>
   </section>
 </div>
-</div>
-    </section>
+      </section>
 
     <section id="page-analytics" class="page" aria-labelledby="analytics-title" hidden>
       <div class="page-heading">
