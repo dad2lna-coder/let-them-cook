@@ -9,7 +9,7 @@ import { migrateToV4 } from "../data/migrations.js";
 import { renderDashboard } from "../pages/dashboard.js";
 import { renderProblemsPage, showProblemEditor, hideProblemEditor, saveProblem, deleteProblem, editProblem } from "../pages/problems.js";
 import { renderAnalytics } from "../pages/analytics.js";
-import { renderInitiativeList, openInitiativeEditor, addInitiative, deleteInitiative, saveCurrentInitiative, backToInitiativesList } from "../components/initiative.js";
+import { renderInitiativeList, openInitiativeEditor, addInitiative, deleteInitiative, saveCurrentInitiative, backToInitiativesList, addBriefingRow, deleteBriefingRow, toggleBriefingPicker } from "../components/initiative.js";
 import { addRootNote, replyToNote, saveReply } from "../components/notes.js";
 import { renderSidebar } from "../components/navigation.js";
 
@@ -94,6 +94,16 @@ function collectInitiatives() {
   current.status = document.getElementById("initiative-status")?.value || "New";
   current.startDate = document.getElementById("initiative-start-date")?.value || "";
   current.problemId = document.getElementById("initiative-problem")?.value || "";
+  const briefingList = document.getElementById("briefing-list");
+  if (briefingList) {
+    current.briefing = Array.from(briefingList.querySelectorAll(".briefing-row")).map(row => {
+      const id = row.dataset.id;
+      const existing = (current.briefing || []).find(r => r.id === id);
+      return { id, kind: existing?.kind || "what", body: row.querySelector("textarea")?.value || "" };
+    });
+  } else if (!Array.isArray(current.briefing)) {
+    current.briefing = [];
+  }
   current.sections = [];
   document.querySelectorAll(".section-editor").forEach(sectionEl => {
     const section = collectSectionPayload(sectionEl.dataset.id);
@@ -172,6 +182,9 @@ export function bindUiEvents() {
       case "back-initiatives": backToInitiativesList(); break;
       case "delete-initiative": deleteInitiative(target.dataset.id); break;
       case "open-initiative": openInitiativeEditor(target.dataset.id); break;
+      case "toggle-briefing-picker": toggleBriefingPicker(); break;
+      case "add-briefing": addBriefingRow(target.dataset.kind); break;
+      case "delete-briefing": deleteBriefingRow(target.dataset.id); break;
       case "add-note": addRootNote(); break;
       case "reply-note": replyToNote(target.dataset.id); break;
       case "save-reply": saveReply(target.dataset.id); break;

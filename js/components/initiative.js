@@ -35,6 +35,77 @@ function collectQuestionsForPanel(listId) {
   return Array.from(list.querySelectorAll("li span")).map(span => span.innerText.trim()).filter(Boolean);
 }
 
+const BRIEFING_KINDS = ["who","what","when","where","why","how"];
+
+function kindLabel(kind) {
+  return ({ who:"Who", what:"What", when:"When", where:"Where", why:"Why", how:"How" })[kind] || kind;
+}
+
+function ensureBriefing(init) {
+  if (!Array.isArray(init.briefing)) init.briefing = [];
+  return init.briefing;
+}
+
+function paintBriefing(init) {
+  const list = document.getElementById("briefing-list");
+  const empty = document.getElementById("briefing-empty");
+  const picker = document.getElementById("briefing-picker");
+  if (picker) picker.hidden = true;
+  if (!list) return;
+  const rows = ensureBriefing(init);
+  list.innerHTML = "";
+  if (empty) empty.hidden = rows.length > 0;
+  rows.forEach(row => {
+    const wrap = document.createElement("div");
+    wrap.className = "briefing-row";
+    wrap.dataset.id = row.id;
+    wrap.innerHTML = `
+      <div class="briefing-row-head">
+        <span class="briefing-pill">${kindLabel(row.kind)}</span>
+        <button type="button" class="quiet" data-action="delete-briefing" data-id="${row.id}">Delete</button>
+      </div>
+      <textarea class="field textarea briefing-body" data-id="${row.id}" rows="3" placeholder="${kindLabel(row.kind)}…"></textarea>`;
+    const ta = wrap.querySelector("textarea");
+    ta.value = row.body || "";
+    ta.addEventListener("input", () => {
+      const hit = ensureBriefing(init).find(r => r.id === row.id);
+      if (hit) hit.body = ta.value;
+      state.cachePayload();
+    });
+    list.appendChild(wrap);
+  });
+}
+
+export function toggleBriefingPicker() {
+  const picker = document.getElementById("briefing-picker");
+  if (!picker) return;
+  picker.hidden = !picker.hidden;
+}
+
+export function addBriefingRow(kind) {
+  const payload = state.getCurrentPayload();
+  const initId = state.getCurrentInitiativeId();
+  const init = (payload?.initiatives || []).find(i => i.id === initId);
+  if (!init || !BRIEFING_KINDS.includes(kind)) return;
+  ensureBriefing(init).push({ id: "brf-" + Date.now(), kind, body: "" });
+  state.setCurrentPayload(payload);
+  paintBriefing(init);
+  const ta = document.querySelector(`#briefing-list .briefing-body[data-id="${ensureBriefing(init).at(-1).id}"]`);
+  ta?.focus();
+  state.cachePayload();
+}
+
+export function deleteBriefingRow(id) {
+  const payload = state.getCurrentPayload();
+  const initId = state.getCurrentInitiativeId();
+  const init = (payload?.initiatives || []).find(i => i.id === initId);
+  if (!init) return;
+  init.briefing = ensureBriefing(init).filter(r => r.id !== id);
+  state.setCurrentPayload(payload);
+  paintBriefing(init);
+  state.cachePayload();
+}
+
 function collectFlowDetails(panelId) {
   const panel = document.getElementById(panelId);
   if (!panel) return null;
@@ -137,6 +208,8 @@ export function renderInitiativeEditor(init, payload) {
   if (detailDeleteBtn) {
     detailDeleteBtn.dataset.id = init.id;
   }
+
+  paintBriefing(init);
 
   // Render notes panel
   renderNotesForInitiative(init);
@@ -252,6 +325,12 @@ export function saveCurrentInitiative(payload) {
   init.status = document.getElementById('initiative-status')?.value || 'New';
   init.startDate = document.getElementById('initiative-start-date')?.value || '';
   init.problemId = document.getElementById('initiative-problem')?.value || '';
+  init.briefing = Array.from(document.querySelectorAll("#briefing-list .briefing-row")).map(row => {
+    const id = row.dataset.id;
+    const kind = (ensureBriefing(init).find(r => r.id === id)?.kind) || "what";
+    const body = row.querySelector("textarea")?.value || "";
+    return { id, kind, body };
+  });
   // Notes are managed by notes.js and stored in payload
   const sectionsContainer = document.getElementById('sections-container');
   if (sectionsContainer && init.sections) {
