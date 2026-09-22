@@ -1,6 +1,7 @@
 // js/stores/state.js — Let Them Cook v4 tabbed shell
 import { escapeHtml, normalizeText } from "../utils/strings.js";
 import { getTauriInvoke, isTauri, invokeCommand } from "../utils/tauri.js";
+import { closeThemeModal, openThemeModal, setTheme } from "../utils/theme.js";
 import { showToast, toggleMoreActions } from "../utils/ui.js";
 import { collectSectionPayload } from "../data/store.js";
 import { EMPTY_PAYLOAD, buildDemoStarterPayload, isValidPayload } from "../data/schema.js";
