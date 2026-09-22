@@ -1,5 +1,5 @@
 import { state, setHello, setSharePathDisplay, refreshFromShare, saveToInbox, initializeUi, switchTab } from './stores/state.js';
-import { initTheme } from './utils/theme.js';
+import { initTheme, openThemeModal, setTheme } from './utils/theme.js';
 import { renderSidebar } from './components/navigation.js';
 import { isValidPayload, EMPTY_PAYLOAD } from './data/schema.js';
 import { migrateToV4 } from './data/migrations.js';
@@ -22,6 +22,8 @@ window.renderProblemsPage = renderProblemsPage;
 window.showProblemEditor = showProblemEditor;
 window.hideProblemEditor = hideProblemEditor;
 window.renderAnalytics = renderAnalytics;
+window.openThemeModal = openThemeModal;
+window.setTheme = setTheme;
 
 import {
   addIdea, addQuestion, addAction, deleteIdea, deleteItem, deleteAction, changeFeedback, updateProgress

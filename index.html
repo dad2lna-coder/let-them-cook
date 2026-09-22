@@ -10,9 +10,8 @@
   <div class="app-shell">
     <div class="top-bar">
       <div class="brand">
-        <img class="brand-seal" src="assets/tsa-seal.png" alt="Transportation Security Administration" width="40" height="40" />
         <h1>Let Them Cook</h1>
-        <img class="brand-airport" src="assets/dallas-love-field.jpg" alt="Dallas Love Field" height="28" />
+        <img class="brand-dal" src="assets/dal-mark.png" alt="Dallas Love Field" height="28" />
       </div>
       <nav class="top-nav">
         <button type="button" class="tab-link active" data-tab="dashboard" data-action="tab">Dashboard</button>
@@ -20,10 +19,12 @@
         <button type="button" class="tab-link" data-tab="initiatives" data-action="tab">Initiatives</button>
         <button type="button" class="tab-link" data-tab="analytics" data-action="tab">Analytics</button>
       </nav>
-      <button type="button" class="theme-toggle" data-action="toggle-theme" aria-pressed="true" title="Toggle theme">Theme: TSA</button>
     </div>
     <div class="shell-body">
       <aside class="sidebar">
+        <div class="sidebar-brand">
+          <img class="sidebar-seal" src="assets/tsa-seal.png" alt="Transportation Security Administration" width="48" height="48" />
+        </div>
         <h3>WORKSPACE</h3>
         <nav class="workspace-links">
           <button type="button" class="workspace-link active" data-filter="all" data-action="tab" data-tab="initiatives">All</button>
@@ -39,6 +40,7 @@
           <h4>Last synced</h4>
           <div id="sidebar-synced">Browser demo</div>
         </div>
+        <button type="button" class="secondary full-width" data-action="open-theme">Theme</button>
       </aside>
       <main class="main-stage">
         <header class="app-header">
@@ -211,7 +213,6 @@
   </section>
 </div>
 </div>
-</section>
 
     <section id="page-analytics" class="page" aria-labelledby="analytics-title" hidden>
       <div class="page-heading">
@@ -253,6 +254,18 @@
     </div>
   </div>
 
+  <div id="theme-modal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="theme-modal-title">
+    <div class="modal-backdrop" data-action="close-theme"></div>
+    <div class="modal-card">
+      <h3 id="theme-modal-title">Theme</h3>
+      <p class="muted">Choose the shell colors for this device.</p>
+      <div class="theme-choices">
+        <button type="button" class="theme-choice" data-action="set-theme" data-theme="tsa">TSA</button>
+        <button type="button" class="theme-choice" data-action="set-theme" data-theme="default">Default</button>
+      </div>
+      <button type="button" class="quiet" data-action="close-theme">Close</button>
+    </div>
+  </div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script type="module" src="js/init.js"></script>
 </body>

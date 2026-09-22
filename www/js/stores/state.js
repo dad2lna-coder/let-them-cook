@@ -156,6 +156,9 @@ export function bindUiEvents() {
       case "save": saveToInbox(); break;
       case "print": window.print(); break;
       case "toggle-more": toggleMoreActions(); break;
+      case "open-theme": openThemeModal(); break;
+      case "close-theme": closeThemeModal(); break;
+      case "set-theme": setTheme(target.dataset.theme); break;
       case "reset": resetDashboard(); break;
       case "tab": switchTab(target.dataset.tab); break;
       case "add-problem": showProblemEditor(null); break;
