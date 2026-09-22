@@ -35,6 +35,7 @@ export function isValidPayload(payload) {
       if (!Array.isArray(sec.actions)) return false;
       if (!Array.isArray(sec.questions)) return false;
     }
+    if (!Array.isArray(init.briefing)) return false;
   }
   return true;
 }
