@@ -207,6 +207,20 @@
             </select>
           </div>
         </div>
+        <section class="panel briefing-panel" id="briefing-panel">
+          <div class="panel-heading"><h3>Briefing</h3></div>
+          <div id="briefing-empty" class="small-muted">Add Who / What / When / Where / Why / How</div>
+          <div id="briefing-list"></div>
+          <button type="button" class="secondary" data-action="add-briefing">+ Add</button>
+          <div class="picker-menu" id="briefing-picker" hidden>
+            <button type="button" data-action="pick-briefing-kind" data-kind="who">Who</button>
+            <button type="button" data-action="pick-briefing-kind" data-kind="what">What</button>
+            <button type="button" data-action="pick-briefing-kind" data-kind="when">When</button>
+            <button type="button" data-action="pick-briefing-kind" data-kind="where">Where</button>
+            <button type="button" data-action="pick-briefing-kind" data-kind="why">Why</button>
+            <button type="button" data-action="pick-briefing-kind" data-kind="how">How</button>
+          </div>
+        </section>
         <div id="sections-container"></div>
         <section class="panel" id="initiative-notes-panel">
     <div class="panel-heading"><h3>Notes</h3></div>

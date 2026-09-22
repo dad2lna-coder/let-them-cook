@@ -35,6 +35,7 @@ export function isValidPayload(payload) {
       if (!Array.isArray(sec.actions)) return false;
       if (!Array.isArray(sec.questions)) return false;
     }
+    if (!Array.isArray(init.briefing)) init.briefing = [];
   }
   return true;
 }
@@ -63,6 +64,7 @@ export function buildDemoStarterPayload() {
         status: "Active",
         startDate: "2026-09-01",
         problemId: "prob-demo-1",
+        briefing: [],
         notes: [
           {
             id: "note-1",
@@ -134,6 +136,7 @@ export function buildDemoStarterPayload() {
         status: "Planning",
         startDate: "",
         problemId: "prob-demo-1",
+        briefing: [],
         notes: [],
         sections: [
           {

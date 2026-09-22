@@ -183,6 +183,7 @@ export function addInitiative(payload, problemId) {
     name: 'New Initiative',
     status: 'New',
     startDate: '',
+    briefing: [],
     notes: [],
     sections: [
       {
