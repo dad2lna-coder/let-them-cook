@@ -19,16 +19,19 @@
           <img class="sidebar-seal" src="assets/tsa-seal.png" alt="" width="160" height="160" aria-hidden="true" />
           <h3 class="sidebar-workspace-label">WORKSPACE</h3>
         </div>
-        <nav class="workspace-links">
-          <button type="button" class="workspace-link active" data-filter="all" data-action="tab" data-tab="initiatives">All</button>
-          <button type="button" class="workspace-link" data-filter="active" data-action="tab" data-tab="initiatives">Active</button>
-          <button type="button" class="workspace-link" data-filter="completed" data-action="tab" data-tab="initiatives">Completed</button>
-        </nav>
-        <button type="button" class="success" data-action="add-initiative">+ New initiative</button>
-        <div class="sidebar-section">
-          <h4>Recent</h4>
-          <div id="sidebar-recent"></div>
+        <button type="button" class="sidebar-nav-btn" data-action="tab" data-tab="dashboard">Dashboard</button>
+        <button type="button" class="sidebar-nav-btn quiet" data-action="tab" data-tab="analytics">Analytics</button>
+
+        <div class="sidebar-nav-block">
+          <div class="sidebar-pill">Problems</div>
+          <div id="sidebar-problems" class="sidebar-tree"></div>
         </div>
+
+        <div class="sidebar-nav-block">
+          <div class="sidebar-pill">Initiatives</div>
+          <div id="sidebar-initiatives" class="sidebar-tree"></div>
+        </div>
+
         <div class="sidebar-section">
           <h4>Last synced</h4>
           <div id="sidebar-synced">Browser demo</div>

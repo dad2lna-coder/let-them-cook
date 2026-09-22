@@ -173,6 +173,10 @@ export function bindUiEvents() {
       case "reset": resetDashboard(); break;
       case "tab": switchTab(target.dataset.tab); break;
       case "add-problem": showProblemEditor(null); break;
+      case "open-problem":
+        switchTab("problems");
+        editProblem(target.dataset.id);
+        break;
       case "add-initiative": addInitiative(); break;
       case "add-initiative-for-problem": addInitiative(undefined, target.dataset.id); break;
       case "save-problem": saveProblem(); break;

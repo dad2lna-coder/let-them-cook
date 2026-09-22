@@ -179,6 +179,114 @@ header p {
   color: var(--muted);
 }
 
+/* Sidebar navigation (LTC-25b) */
+.sidebar-nav-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  background: var(--panel);
+  color: var(--text);
+  transition: background 0.15s ease;
+}
+.sidebar-nav-btn:hover {
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+}
+.sidebar-nav-btn.active {
+  background: var(--primary);
+  color: white;
+}
+.sidebar-nav-btn.quiet {
+  background: transparent;
+  color: var(--muted);
+  font-weight: 500;
+}
+.sidebar-nav-btn.quiet:hover {
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+}
+.sidebar-nav-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sidebar-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--primary-dark);
+  background: var(--primary-soft);
+  width: fit-content;
+  margin: 4px 0 0;
+}
+.sidebar-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 2px;
+}
+.sidebar-tree-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 0;
+}
+.sidebar-tree-group strong {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.sidebar-tree-muted {
+  font-size: 0.82rem;
+  color: var(--muted);
+  padding: 3px 10px 3px 10px;
+  font-style: italic;
+}
+.sidebar-tree-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background 0.12s ease;
+}
+.sidebar-tree-item:hover {
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+}
+.sidebar-tree-item.sidebar-tree-active {
+  border-left: 3px solid var(--accent);
+}
+.sidebar-tree-item.sidebar-tree-solved {
+  color: var(--muted);
+}
+.sidebar-tree-item.sidebar-tree-solved:hover {
+  color: var(--accent);
+}
+
 /* Briefing panel */
 .briefing-panel { padding: 12px 16px; }
 .briefing-row {
