@@ -39,6 +39,7 @@ export function updateThemeUI(name) {
 export function openThemeModal() {
   const modal = document.getElementById("theme-modal");
   if (!modal) return;
+  modal.removeAttribute("hidden");
   modal.hidden = false;
   updateThemeUI(getTheme());
   const firstChoice = modal.querySelector(".theme-choice");
@@ -51,6 +52,7 @@ export function openThemeModal() {
 export function closeThemeModal() {
   const modal = document.getElementById("theme-modal");
   if (!modal) return;
+  modal.setAttribute("hidden", "");
   modal.hidden = true;
 }
 
