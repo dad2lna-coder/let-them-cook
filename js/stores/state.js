@@ -1,6 +1,7 @@
 // js/stores/state.js — Let Them Cook v4 tabbed shell
 import { escapeHtml, normalizeText } from "../utils/strings.js";
 import { getTauriInvoke, isTauri, invokeCommand } from "../utils/tauri.js";
+import { toggleTheme } from "../utils/theme.js";
 import { showToast, toggleMoreActions } from "../utils/ui.js";
 import { collectSectionPayload } from "../data/store.js";
 import { EMPTY_PAYLOAD, buildDemoStarterPayload, isValidPayload } from "../data/schema.js";
@@ -156,6 +157,7 @@ export function bindUiEvents() {
       case "save": saveToInbox(); break;
       case "print": window.print(); break;
       case "toggle-more": toggleMoreActions(); break;
+      case "toggle-theme": toggleTheme(); break;
       case "reset": resetDashboard(); break;
       case "tab": switchTab(target.dataset.tab); break;
       case "add-problem": showProblemEditor(null); break;

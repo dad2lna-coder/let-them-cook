@@ -17,6 +17,17 @@
       --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
       --radius: 16px;
     }
+
+    [data-theme="tsa"] {
+      --primary: #003A70;
+      --primary-hover: #002850;
+      --accent: #C8102E;
+      --page-bg: #EEF2F6;
+      --header-bg: #003A70;
+      --header-text: #ffffff;
+      --card-bg: #ffffff;
+      --border: #C5D0DC;
+    }
     * {
       box-sizing: border-box;
     }
@@ -55,12 +66,13 @@
       top: 0;
       z-index: 10;
       height: 56px;
-      background: #ffffff;
-      border-bottom: 1px solid #d1d5db;
+      background: var(--primary);
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 16px;
+      color: var(--header-text);
     }
     .brand {
       display: flex;
@@ -72,6 +84,47 @@
       font-size: 1.25rem;
       font-weight: 700;
       color: #6b7280;
+    }
+    .brand-seal {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      display: block;
+    }
+    .brand-airport {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .theme-toggle {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+      white-space: nowrap;
+    }
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: none;
+    }
+    .theme-toggle:active {
+      transform: scale(0.97);
+    }
+
+    [data-theme="tsa"] .theme-toggle {
+      background: rgba(255, 255, 255, 0.9);
+      color: #003A70;
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+    [data-theme="tsa"] .theme-toggle:hover {
+      background: #ffffff;
     }
     .top-nav {
       display: flex;
