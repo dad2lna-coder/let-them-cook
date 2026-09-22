@@ -214,10 +214,13 @@ function fillProblemSelect(payload, selectedId) {
   problems.forEach(problem => {
     const option = document.createElement('option');
     option.value = problem.id;
-    option.textContent = problem.title || 'Unnamed problem';
+    const label = problem.status === 'Solved'
+      ? `${problem.title || 'Unnamed problem'} (Solved)`
+      : (problem.title || 'Unnamed problem');
+    option.textContent = label;
     select.appendChild(option);
   });
-  
+
   // Set selected value
   select.value = selectedId;
 }

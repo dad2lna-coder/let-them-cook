@@ -10,6 +10,7 @@ export function renderProblemCard(problem, compact = false) {
     <div class="editable-content" contenteditable="true">${escapeHtml(problem.body || '')}</div>
     <div class="card-foot">
       <span class="priority-pill priority-${problem.priority || 'medium'}">${problem.priority || 'medium'}</span>
+      <span class="problem-status-badge ${problem.status === 'Solved' ? 'is-solved' : 'is-active'}">${problem.status || 'Active'}</span>
       ${compact ? `<button type="button" class="text-button" data-action="edit-problem" data-id="${problem.id}">Edit</button>` : ''}
     </div>
   `;

@@ -242,6 +242,7 @@ header p {
   font-weight: 700;
 }
 .small-muted { color: var(--muted); font-size: 0.85rem; margin: 4px 0; }
+.shell-body {
   display: grid;
   grid-template-columns: 240px 1fr;
   flex: 1;
@@ -380,8 +381,31 @@ button.warning {
 button.danger {
   background: var(--danger);
 }
+button.primary {
+  background: var(--primary);
+  color: white;
+}
 button.light,
 .link-button.light {
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+}
+
+.problem-status-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+.problem-status-badge.is-active {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.problem-status-badge.is-solved {
+  background: var(--primary-soft);
+  color: var(--muted);
+}
   background: var(--primary-soft);
   color: var(--primary-dark);
 }

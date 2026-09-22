@@ -7,7 +7,7 @@ import { collectSectionPayload } from "../data/store.js";
 import { EMPTY_PAYLOAD, buildDemoStarterPayload, isValidPayload } from "../data/schema.js";
 import { migrateToV4 } from "../data/migrations.js";
 import { renderDashboard } from "../pages/dashboard.js";
-import { renderProblemsPage, showProblemEditor, hideProblemEditor, saveProblem, deleteProblem, editProblem } from "../pages/problems.js";
+import { renderProblemsPage, showProblemEditor, hideProblemEditor, saveProblem, deleteProblem, editProblem, setProblemStatus } from "../pages/problems.js";
 import { renderAnalytics } from "../pages/analytics.js";
 import { renderInitiativeList, openInitiativeEditor, addInitiative, deleteInitiative, saveCurrentInitiative, backToInitiativesList, addBriefingRow, deleteBriefingRow, toggleBriefingPicker } from "../components/initiative.js";
 import { addRootNote, replyToNote, saveReply } from "../components/notes.js";
@@ -178,6 +178,9 @@ export function bindUiEvents() {
       case "save-problem": saveProblem(); break;
       case "cancel-problem": hideProblemEditor(); break;
       case "delete-problem": deleteProblem(target.dataset.id); break;
+      case "mark-problem-solved": setProblemStatus(target.dataset.id, "Solved"); break;
+      case "mark-problem-active": setProblemStatus(target.dataset.id, "Active"); break;
+      case "edit-problem": editProblem(target.dataset.id); break;
       case "save-initiative": saveCurrentInitiative(); break;
       case "back-initiatives": backToInitiativesList(); break;
       case "delete-initiative": deleteInitiative(target.dataset.id); break;

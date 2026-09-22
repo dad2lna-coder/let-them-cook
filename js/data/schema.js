@@ -54,6 +54,7 @@ export function buildDemoStarterPayload() {
         title: "Notification gaps when personnel leave the operation",
         body: "Scheduling, Payroll, CC, TSMs, Finance, Training, and Senior Management often don't receive timely notice when someone goes on NDO, Training, or TSST-Travel. Manual email forwards are unreliable.",
         priority: "medium",
+        status: "Active",
         createdAt: now
       }
     ],

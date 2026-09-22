@@ -130,6 +130,18 @@ export function migrateToV4(payload) {
     };
   });
 
+  // Status: legacy problems with missing/invalid status -> "Active"
+  result.problems = result.problems.map(problem => {
+    const raw = problem && typeof problem === "object" ? problem : {};
+    const { owner: _owner, ...rest } = raw;
+    const status = rest.status === "Solved" ? "Solved" : "Active";
+    return {
+      ...rest,
+      status,
+      solvedAt: status === "Solved" && rest.solvedAt ? rest.solvedAt : (status === "Solved" ? new Date().toISOString() : rest.solvedAt || "")
+    };
+  });
+
   result.initiatives.forEach(initiative => {
     initiative.sections.forEach(section => {
       if (!section || typeof section !== "object") return;

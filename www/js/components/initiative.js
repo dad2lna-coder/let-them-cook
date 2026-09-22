@@ -106,21 +106,6 @@ export function deleteBriefingRow(id) {
   state.cachePayload();
 }
 
-function collectFlowDetails(panelId) {
-  const panel = document.getElementById(panelId);
-  if (!panel) return null;
-  const flowItems = panel.querySelectorAll(".flow-item");
-  if (flowItems.length < 6) return null;
-  return {
-    currentRecipients: Array.from(flowItems[0].querySelectorAll(".tag")).map(t => t.innerText.trim()),
-    teamsNotification: Array.from(flowItems[1].querySelectorAll(".tag")).map(t => t.innerText.trim()),
-    personnel: flowItems[2]?.querySelector(".editable-content")?.innerText.trim() || "",
-    notificationNeed: flowItems[3]?.querySelector(".editable-content")?.innerText.trim() || "",
-    movementPath: flowItems[4]?.querySelector(".editable-content")?.innerText.trim() || "",
-    status: flowItems[5]?.querySelector(".status-pill")?.innerText.trim() || "Discovery Needed"
-  };
-}
-
 // ------------------------------------------------------------------
 // Render: Initiative list view
 // ------------------------------------------------------------------
@@ -229,10 +214,13 @@ function fillProblemSelect(payload, selectedId) {
   problems.forEach(problem => {
     const option = document.createElement('option');
     option.value = problem.id;
-    option.textContent = problem.title || 'Unnamed problem';
+    const label = problem.status === 'Solved'
+      ? `${problem.title || 'Unnamed problem'} (Solved)`
+      : (problem.title || 'Unnamed problem');
+    option.textContent = label;
     select.appendChild(option);
   });
-  
+
   // Set selected value
   select.value = selectedId;
 }
@@ -341,7 +329,6 @@ export function saveCurrentInitiative(payload) {
       const actions = collectTasksForPanel(secId + '-task-list');
       const questions = collectQuestionsForPanel(secId + '-question-list');
       const notes = collectNotesForSection(secId + '-notes');
-      const flow = collectFlowDetails(secId);
       init.sections.push({
         id: secId,
         name: sectionEl.querySelector('.section-name')?.value || 'Section',
@@ -350,7 +337,7 @@ export function saveCurrentInitiative(payload) {
         ideas,
         actions,
         questions,
-        flow
+        flow: null
       });
     });
   }
@@ -407,4 +394,4 @@ function collectNotesForSection(notesListId) {
   return notes;
 }
 
-export { collectTablePayload, collectTasksForPanel, collectQuestionsForPanel, collectFlowDetails, collectNotesForSection };
+export { collectTablePayload, collectTasksForPanel, collectQuestionsForPanel, collectNotesForSection };

@@ -54,6 +54,7 @@ export function buildDemoStarterPayload() {
         title: "Notification gaps when personnel leave the operation",
         body: "Scheduling, Payroll, CC, TSMs, Finance, Training, and Senior Management often don't receive timely notice when someone goes on NDO, Training, or TSST-Travel. Manual email forwards are unreliable.",
         priority: "medium",
+        status: "Active",
         createdAt: now
       }
     ],
@@ -109,14 +110,7 @@ export function buildDemoStarterPayload() {
               "Who owns the distribution list for each movement type?",
               "What is the minimum advance notice required by Payroll?"
             ],
-            flow: {
-              currentRecipients: ["FSD", "AFSD-S"],
-              teamsNotification: ["Scheduling", "Payroll", "CC", "TSMs", "Finance", "Training"],
-              personnel: "Team members moving out of operation for NDO",
-              notificationNeed: "Departure dates, duration, assignment location, return date",
-              movementPath: "Home operation → Assignment location → Return to operation",
-              status: "Discovery Needed"
-            }
+            flow: null
           },
           {
             id: "init-demo-1-sec-2",
@@ -159,14 +153,7 @@ export function buildDemoStarterPayload() {
               { id: "task-7", text: "Test Power Automate flow with shared mailbox", complete: false }
             ],
             questions: ["What Teams channels exist for each target team?"],
-            flow: {
-              currentRecipients: [],
-              teamsNotification: ["Scheduling", "Payroll", "CC", "TSMs", "Finance", "Training", "Sr. Management"],
-              personnel: "All personnel moving out of operation",
-              notificationNeed: "Automated, timely notification to all impacted teams",
-              movementPath: "Shared mailbox → Power Automate → Teams channels",
-              status: "Planning"
-            }
+            flow: null
           }
         ]
       }
