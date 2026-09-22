@@ -162,22 +162,23 @@ header p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  min-height: 140px;
-  padding: 12px 8px 8px;
-  margin: 0 0 8px;
-  overflow: hidden;
+  justify-content: flex-start;
+  min-height: 168px;
+  padding: 16px 8px 4px;
+  margin: 0 0 4px;
+  overflow: visible;
 }
 .sidebar-seal {
-  position: absolute;
-  left: 50%;
-  top: 42%;
-  transform: translate(-50%, -50%);
-  width: 150px;
-  height: 150px;
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  width: 132px;
+  height: 132px;
   object-fit: contain;
-  opacity: 0.22;
+  opacity: 0.12;
   pointer-events: none;
+  margin: 0 auto 8px;
   z-index: 0;
   background: transparent;
 }
