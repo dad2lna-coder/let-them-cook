@@ -114,37 +114,21 @@ header p {
   margin-left: auto;
 }
 
-.top-nav {
-  display: flex;
-  gap: 4px;
-}
-.top-nav .tab-link {
-  background: none;
-  border: none;
-  padding: 10px 14px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--header-muted);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  border-radius: 6px 6px 0 0;
-  white-space: nowrap;
-}
-.top-nav .tab-link.active {
+.app-wordmark {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-align: center;
+  margin: 0;
   color: var(--header-text);
-  border-bottom-color: var(--header-text);
+  font-family: "Segoe UI", Arial, sans-serif;
 }
-.top-nav .tab-link.active {
-  border-bottom-color: var(--header-text);
+.top-bar-spacer {
+  flex: 0 0 auto;
+  width: 0;
 }
-[data-theme="tsa"] .top-nav .tab-link.active {
-  border-bottom-color: var(--accent);
-}
-.top-nav .tab-link:hover {
-  color: var(--header-text);
-  background: var(--tab-hover-bg);
-}
+
+/* Top nav removed — LTC-25a */
 
 /* Theme modal */
 .modal[hidden]{display:none}

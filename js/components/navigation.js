@@ -24,18 +24,14 @@ export function renderSidebar(payload) {
 }
 
 export function markActiveTab(tabName) {
-  document.querySelectorAll('.top-bar .tab-link').forEach(t => {
-    t.classList.toggle('active', t.dataset.tab === tabName);
-  });
+  // top-bar tabs removed in LTC-25a — workspace links own active state
   document.querySelectorAll('.workspace-link').forEach(t => {
     t.classList.toggle('active', t.dataset.tab === 'initiatives' || t.dataset.filter !== undefined);
   });
 }
 
 export function bindShellNavigation() {
-  document.querySelectorAll('.top-bar .tab-link[data-action="tab"]').forEach(btn => {
-    btn.addEventListener('click', () => state.switchTab(btn.dataset.tab));
-  });
+  // top-bar tabs removed in LTC-25a — workspace links own tab switching
   document.querySelectorAll('.workspace-link[data-action="tab"]').forEach(btn => {
     btn.addEventListener('click', () => state.switchTab(btn.dataset.tab));
   });

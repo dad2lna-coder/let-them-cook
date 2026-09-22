@@ -263,7 +263,7 @@ export async function saveToInbox() {
 
 export function switchTab(tabName) {
   currentTab = tabName;
-  document.querySelectorAll(".top-bar .tab-link").forEach(t => t.classList.toggle("active", t.dataset.tab === tabName));
+  // top-bar tabs removed in LTC-25a — workspace links own active state
   document.querySelectorAll(".workspace-link").forEach(t => {
     t.classList.toggle("active", tabName === "initiatives" && t.dataset.filter === "all");
   });
