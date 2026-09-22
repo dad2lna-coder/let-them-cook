@@ -12,9 +12,6 @@ export function renderSection(section, index, initId, container) {
       <input type="text" class="section-name" value="${state.escapeHtml(section.name || 'Section')}" placeholder="Section name" />
       <button type="button" class="danger remove-section" data-section-id="${section.id}">Remove</button>
     </div>
-    <div class="flow-grid" id="${section.id}-flow">
-      ${renderFlowFields(section.flow || defaultFlow())}
-    </div>
     <table id="${section.id}-ideas">
       <thead>
         <tr><th>Idea</th><th>Contributor</th><th>Pros &amp; Concerns</th><th>Feedback</th><th>Action</th></tr>
@@ -70,44 +67,4 @@ export function renderSection(section, index, initId, container) {
       }
     }
   });
-}
-
-function defaultFlow() {
-  return {
-    currentRecipients: [],
-    teamsNotification: [],
-    personnel: '',
-    notificationNeed: '',
-    movementPath: '',
-    status: 'Discovery Needed'
-  };
-}
-
-function renderFlowFields(flow) {
-  return `
-    <div class="flow-item">
-      <strong>Current Recipients</strong>
-      <div class="tag-list">${(flow.currentRecipients || []).map(r => `<span class="tag" contenteditable="true">${state.escapeHtml(r)}</span>`).join(' ')}</div>
-    </div>
-    <div class="flow-item">
-      <strong>Teams Notification</strong>
-      <div class="tag-list">${(flow.teamsNotification || []).map(t => `<span class="tag" contenteditable="true">${state.escapeHtml(t)}</span>`).join(' ')}</div>
-    </div>
-    <div class="flow-item">
-      <strong>Personnel</strong>
-      <div class="editable-content" contenteditable="true">${state.escapeHtml(flow.personnel || '')}</div>
-    </div>
-    <div class="flow-item">
-      <strong>Notification Need</strong>
-      <div class="editable-content" contenteditable="true">${state.escapeHtml(flow.notificationNeed || '')}</div>
-    </div>
-    <div class="flow-item">
-      <strong>Notification Path</strong>
-      <div class="editable-content" contenteditable="true">${state.escapeHtml(flow.movementPath || '')}</div>
-    </div>
-    <div class="flow-item">
-      <strong>Status</strong>
-      <div class="status-pill" contenteditable="true">${state.escapeHtml(flow.status || 'Discovery Needed')}</div>
-    </div>
-  `;
 }

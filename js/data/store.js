@@ -41,41 +41,6 @@ function collectQuestionsForPanel(listId) {
   return Array.from(list.querySelectorAll("li span")).map(span => span.innerText.trim()).filter(Boolean);
 }
 
-function collectFlowDetails(panelId) {
-  const panel = document.getElementById(panelId);
-  if (!panel) return null;
-  const flowItems = panel.querySelectorAll(".flow-item");
-  if (flowItems.length < 6) return null;
-  return {
-    currentRecipients: Array.from(flowItems[0].querySelectorAll(".tag")).map(t => t.innerText.trim()),
-    teamsNotification: Array.from(flowItems[1].querySelectorAll(".tag")).map(t => t.innerText.trim()),
-    personnel: flowItems[2].querySelector(".editable-content")?.innerText.trim() || "",
-    notificationNeed: flowItems[3].querySelector(".editable-content")?.innerText.trim() || "",
-    movementPath: flowItems[4].querySelector(".editable-content")?.innerText.trim() || "",
-    status: flowItems[5].querySelector(".status-pill")?.innerText.trim() || "Discovery Needed"
-  };
-}
-
-function applyFlowDetails(panelId, flowData) {
-  if (!flowData) return;
-  const panel = document.getElementById(panelId);
-  if (!panel) return;
-  const flowItems = panel.querySelectorAll(".flow-item");
-  if (flowItems.length < 6) return;
-  if (Array.isArray(flowData.currentRecipients) && flowData.currentRecipients.length > 0) {
-    const container = flowItems[0].querySelector(".tag-list");
-    if (container) container.innerHTML = flowData.currentRecipients.map(r => `<span class="tag" contenteditable="true">${escapeHtml(r)}</span>`).join(' ');
-  }
-  if (Array.isArray(flowData.teamsNotification) && flowData.teamsNotification.length > 0) {
-    const container = flowItems[1].querySelector(".tag-list");
-    if (container) container.innerHTML = flowData.teamsNotification.map(t => `<span class="tag" contenteditable="true">${escapeHtml(t)}</span>`).join(' ');
-  }
-  if (flowData.personnel) { const el = flowItems[2].querySelector(".editable-content"); if (el) el.innerText = flowData.personnel; }
-  if (flowData.notificationNeed) { const el = flowItems[3].querySelector(".editable-content"); if (el) el.innerText = flowData.notificationNeed; }
-  if (flowData.movementPath) { const el = flowItems[4].querySelector(".editable-content"); if (el) el.innerText = flowData.movementPath; }
-  if (flowData.status) { const el = flowItems[5].querySelector(".status-pill"); if (el) el.innerText = flowData.status; }
-}
-
 function addPayloadIdeaRow(tableId, item) {
   const tbody = document.querySelector(`#${tableId} tbody`);
   if (!tbody) return;
@@ -229,8 +194,8 @@ function collectSectionPayload(sectionId) {
     ideas: collectTablePayload(sectionId + "-ideas"),
     actions: collectTasksForPanel(sectionId + "-task-list"),
     questions: collectQuestionsForPanel(sectionId + "-question-list"),
-    flow: collectFlowDetails(sectionId)
+    flow: null
   };
 }
 
-export { normalizeIdeas, collectTablePayload, collectTasksForPanel, collectQuestionsForPanel, collectFlowDetails, collectSectionPayload, applyFlowDetails, addPayloadIdeaRow, renderPayloadTable, renderPayloadTableFromIdeas, applyTasksForPanel, applyQuestionsForPanel, applyProblems, applyListItems, makeEditableListItem, collectListItems, updateProgress, updateMetrics, initProgress };
+export { normalizeIdeas, collectTablePayload, collectTasksForPanel, collectQuestionsForPanel, collectSectionPayload, addPayloadIdeaRow, renderPayloadTable, renderPayloadTableFromIdeas, applyTasksForPanel, applyQuestionsForPanel, applyProblems, applyListItems, makeEditableListItem, collectListItems, updateProgress, updateMetrics, initProgress };
