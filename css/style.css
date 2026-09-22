@@ -242,6 +242,7 @@ header p {
   font-weight: 700;
 }
 .small-muted { color: var(--muted); font-size: 0.85rem; margin: 4px 0; }
+.shell-body {
   display: grid;
   grid-template-columns: 240px 1fr;
   flex: 1;
